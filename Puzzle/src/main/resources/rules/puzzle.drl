@@ -3,23 +3,45 @@ package com.sample
 
 //list any import classes here.
 
-
+import com.sample.Celda;
+import com.sample.Clue;
 
 //declare any global variables here
 
 
-
-
-rule "Your First Rule"
+rule "Validar Disyunto"
 
     when
         //conditions
+        //Tener una celda
+        //$s : Setting($rn: rowNo, $cn: colNo,  $cprof: colProf, $v: value)        
+        $c : Celda($cr: CellRow, $cc: CellCol, $cp: CellProf, $i1: insRow, $i2: insCol, $i3: insProf, $valor: value)
+        
+    then
+        //actions
+        //Cambiar el estado celda
+        //modify( $c ){ setValue( $v ) }
+        $c.setValue(Celda.FALSO);
+        //System.out.println( "1.) INICIALIZAMOS LAS CELDAS COMO VACIAS ");
+        System.out.println( "set cell: " + $valor + " Row: "+ $cr + " Col: "+$cc + " Prof: "+$cp +"Valor Nuevo"+ $c.getValue());
+        System.out.println( "i1: " + $i1 + " i2: " + $i2 + " i3: " + $i3);
+        //System.out.println( "***************************************** ");
+        //$c.setValue(Celda.FALSO);
+        //System.out.println( "Cambio a falso" );
+end
+
+rule "Coparar sin Atributos"
+
+    when
+        //conditions
+        $c : Celda($cr: CellRow, $cc: CellCol)
+        
     then
         //actions
 
 end
 
-rule "Your Second Rule"
+rule "Compara con Atributo"
     //include attributes such as "salience" here...
     when
         //conditions
